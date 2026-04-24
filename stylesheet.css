@@ -5,6 +5,7 @@
       --clr-surface:     #FFFDF8;
       --clr-navy:        #1A2340;
       --clr-navy-light:  #263059;
+      --clr-navy-xlight: #3e4b7d;
       --clr-gold:        #C9963A;
       --clr-gold-light:  #E8B55A;
       --clr-text:        #1C1C1E;
@@ -13,9 +14,9 @@
       --clr-focus:       #C9963A;
 
       /*--font-display:    'Playfair Display', Georgia, serif;*/
-      --font-display: 'Manrope', Arial, sans-serif;
+      --font-display: 'Manrope', 'Arial', sans-serif;
       --font-body:       'Source Serif 4', 'Georgia', serif;
-      --font-mono:       'JetBrains Mono', 'Courier New', monospace;
+      --font-mono:       'Manrope', 'Arial', sans-serif;
 
       --radius-sm:  4px;
       --radius-md:  8px;
@@ -528,7 +529,7 @@
       left: 11px;
       width: 2px;
       bottom: 12px;
-      background: linear-gradient(to bottom, var(--clr-gold), var(--clr-border));
+      background: linear-gradient(to bottom, var(--clr-navy-xlight), var(--clr-gold));
       border-radius: 2px;
     }
  
@@ -585,7 +586,7 @@
       font-size: 0.72rem;
       font-weight: 600;
       letter-spacing: 0.08em;
-      color: var(--clr-gold);
+      color: var(--clr-navy-xlight);
       margin-bottom: 0.3rem;
     }
  
@@ -703,7 +704,10 @@
       color: rgba(255,255,255,0.75);
       padding: 4rem 2rem 2.5rem;
       position: relative;
+      
     }
+
+    address{font-style: normal;}
 
     .site-footer::before {
       content: '';
@@ -742,6 +746,7 @@
 
     .footer-contacts-title {
       font-family: var(--font-mono);
+      font-weight: 700;
       font-size: 0.72rem;
       letter-spacing: 0.18em;
       text-transform: uppercase;
@@ -751,8 +756,8 @@
 
     .contacts-list {
       list-style: none;
-      display: flex;
-      flex-direction: column;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
       gap: 1.2rem;
     }
 
@@ -776,6 +781,7 @@
 
     .contact-email {
       font-family: var(--font-mono);
+      font-weight: 400;
       font-size: 0.82rem;
       color: var(--clr-gold-light);
       text-decoration: none;
