@@ -742,6 +742,7 @@
       font-size: 0.9rem;
       color: rgba(255,255,255,0.5);
       max-width: 36ch;
+      min-width: 27ch;
     }
 
     .footer-contacts-title {
@@ -792,6 +793,15 @@
       color: #fff;
       text-decoration: underline;
     }
+
+    .contact-bio {
+  font-size: 0.82rem;
+  color: rgba(255,255,255,0.45);
+  line-height: 1.55;
+  margin-top: 0.35rem;
+  padding-top: 0.35rem;
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
 
     .footer-bottom {
       padding-top: 2rem;
