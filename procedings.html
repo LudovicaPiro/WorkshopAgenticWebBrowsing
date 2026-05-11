@@ -36,11 +36,11 @@
 
       <!-- Nav Links -->
       <ul class="nav-links" id="primary-nav-links" role="list">
-        <li><a href="index.html"              aria-current="page">Homepage</a></li>
-        <li><a href="index.html#call-for-papers">Call for papers</a></li>
-        <li><a href="index.html#key-deadlines"> Key deadlines</a></li>
-        <li><a href="#index.html#contacts-section">Contacts</a></li>
-        <li><a href="procedings.html">Accepted papers</a></li>
+        <li><a href="index.html" data-section="top">Homepage</a></li>
+        <li><a href="index.html#call-for-papers" data-section="call-for-papers">Call for papers</a></li>
+        <li><a href="index.html#key-deadlines" data-section="key-deadlines"> Key deadlines</a></li>
+        <li><a href="organizers.html" data-page="organizers.html">Organizers</a></li>
+        <li><a href="procedings.html" data-page="procedings.html">Accepted papers</a></li>
       </ul>
 
     </div>
@@ -70,7 +70,136 @@
 
   <!-- ── Main Content ──────────────────────────────────────────────── -->
   <main id="main-content" class="site-main">
-    <p>
+    <section id="accepted-papers">
+       <p>
         This page will be updated at the end of the conference.
     </p>
+    </section>
+   
   </main>
+
+    <!-- ── Back to Top ─────────────────────────────────────────────── -->
+  <div class="back-to-top-wrap">
+    <a class="back-to-top" href="#" aria-label="Back to top of page">
+      <span class="back-to-top-arrow" aria-hidden="true">↑</span>
+      Back to top
+    </a>
+  </div>
+
+
+  <!-- ── Footer ──────────────────────────────────────────────────── -->
+  <footer class="site-footer" id="contacts-section" role="contentinfo">
+    <div class="footer-inner">
+
+      <div class="footer-top">
+
+        <!-- Branding -->
+        <div class="footer-brand">
+          <p class="footer-brand-name">CIAW</p>
+          <p class="footer-brand-desc">
+            CUI 2026<br>
+            Bremen, Germany · 21–24 July 2026
+          </p>
+        </div>
+
+        <!-- Contacts -->
+        <address>
+          <p class="footer-contacts-title">Organizers</p>
+          <ul class="contacts-list" role="list">
+
+            <li class="contact-item">
+              <span class="contact-name">Ludovica Piro <strong>(main contact)</strong></span>
+              <span class="contact-role">Politecnico di Milano, Italy</span>
+              <a class="contact-email" href="mailto:ludovica.piro@polimi.it">
+                ludovica.piro@polimi.it
+              </a>
+            </li>
+
+             <li class="contact-item">
+              <span class="contact-name">Heloisa Candello</span>
+              <span class="contact-role">Inteli, Brazil</span>
+             <!--  <a class="contact-email" href="mailto:heloisacsp@gmail.com">
+                heloisacsp@gmail.com
+              </a> -->
+            </li>
+
+            <li class="contact-item">
+              <span class="contact-name">Maristella Matera</span>
+              <span class="contact-role">Politecnico di Milano, Italy</span>
+             <!--  <a class="contact-email" href="mailto:maristella.matera@polimi.it">
+                maristella.matera@polimi.it
+              </a> -->
+            </li>
+
+            <li class="contact-item">
+              <span class="contact-name">Christine Murad</span>
+              <span class="contact-role">University of Waterloo, Canada</span>
+             <!--  <a class="contact-email" href="mailto:c2murad@uwaterloo.ca">
+                c2murad@uwaterloo.ca
+              </a> -->
+            </li>
+
+          </ul>
+        </address>
+
+      </div>
+
+    </div>
+  </footer>
+
+
+   <!-- ── Accessible Mobile Nav Script ──────────────────────────── -->
+  <script>
+    (function () {
+      const toggle = document.querySelector('.nav-toggle');
+      const navLinks = document.getElementById('primary-nav-links');
+
+      if (!toggle || !navLinks) return;
+
+      toggle.addEventListener('click', function () {
+        const expanded = this.getAttribute('aria-expanded') === 'true';
+        this.setAttribute('aria-expanded', String(!expanded));
+        navLinks.classList.toggle('is-open', !expanded);
+      });
+
+      // Close menu on Escape
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && navLinks.classList.contains('is-open')) {
+          toggle.setAttribute('aria-expanded', 'false');
+          navLinks.classList.remove('is-open');
+          toggle.focus();
+        }
+      });
+
+      // Close menu when a link is clicked (mobile)
+      navLinks.querySelectorAll('a').forEach(function (link) {
+        link.addEventListener('click', function () {
+          toggle.setAttribute('aria-expanded', 'false');
+          navLinks.classList.remove('is-open');
+        });
+      });
+    })();
+
+        // ── Active nav link via IntersectionObserver ──────────────────
+    (function () {
+  const links = document.querySelectorAll('#primary-nav-links a[data-page]');
+
+  function setActiveFromURL() {
+    const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+    links.forEach(function (link) {
+      if (link.getAttribute('data-page') === currentPage) {
+        link.setAttribute('aria-current', 'page');
+      } else {
+        link.removeAttribute('aria-current');
+      }
+    });
+  }
+
+  setActiveFromURL();
+  window.addEventListener('popstate', setActiveFromURL);
+})();
+
+  </script>
+
+</body>
+</html>
