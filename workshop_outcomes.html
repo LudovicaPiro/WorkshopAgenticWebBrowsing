@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Workshop outcomes — accepted papers, group activities and photo gallery from the CIAW workshop at CUI 2026." />
+  <title>Workshop Outcomes — CIAW</title>
+  <link rel="stylesheet" href="./stylesheet.css" />
+
+  <style>
+    /* ── New components not in stylesheet.css ────────────────────
+       All colours and radii use existing tokens.                  */
+
+    /* ─── Intro banner image ──────────────────────────────────── */
+    .intro-banner {
+      margin-top: 2rem;
+      width: 100%;
+      max-height: 420px;
+      object-fit: cover;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--clr-border);
+      box-shadow: var(--shadow-md);
+    }
+
+    .intro-banner-caption {
+      margin-top: 0.75rem;
+      font-size: 0.85rem;
+      color: var(--clr-text-muted);
+      font-style: italic;
+      text-align: center;
+    }
+
+    /* ─── Accepted papers list ────────────────────────────────── */
+    .papers-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .paper-card {
+      background: var(--clr-surface);
+      border: 1px solid var(--clr-border);
+      border-radius: var(--radius-md);
+      padding: 1.4rem 1.6rem;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 0.4rem 2rem;
+      align-items: center;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .paper-card:hover {
+      border-color: var(--clr-gold);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .paper-info { grid-column: 1; }
+
+    .paper-title {
+      font-family: var(--font-display);
+      font-size: 1.02rem;
+      font-weight: 600;
+      color: var(--clr-navy);
+      margin-bottom: 0.25rem;
+    }
+
+    .paper-title a {
+      color: inherit;
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .paper-title a:hover {
+      color: var(--clr-gold);
+      border-bottom-color: var(--clr-gold);
+    }
+
+    .paper-authors {
+      font-size: 0.88rem;
+      color: var(--clr-text-muted);
+    }
+
+    .paper-download {
+      grid-column: 2;
+      grid-row: 1 / 3;
+      align-self: center;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.5rem 1.1rem;
+      background: transparent;
+      color: var(--clr-navy);
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-decoration: none;
+      border: 1.5px solid var(--clr-border);
+      border-radius: var(--radius-sm);
+      white-space: nowrap;
+      transition: background 0.2s, border-color 0.2s, color 0.2s;
+    }
+
+    .paper-download:hover {
+      background: var(--clr-navy);
+      color: var(--clr-gold-light);
+      border-color: var(--clr-navy);
+    }
+
+    /* ─── Outcomes summary paragraph ──────────────────────────── */
+    .outcomes-summary {
+      font-size: 1.05rem;
+      color: var(--clr-text);
+      line-height: 1.8;
+      max-width: 72ch;
+      margin-bottom: 2rem;
+    }
+
+    /* ─── Group blocks ────────────────────────────────────────── */
+    .groups-list {
+      display: flex;
+      flex-direction: column;
+      gap: 2.5rem;
+    }
+
+    .group-block {
+      background: var(--clr-surface);
+      border: 1px solid var(--clr-border);
+      border-radius: var(--radius-lg);
+      padding: 2rem 2.2rem;
+    }
+
+    .group-label {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--clr-gold);
+      margin-bottom: 0.3rem;
+    }
+
+    .group-title {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--clr-navy);
+      margin-bottom: 0.9rem;
+      padding-bottom: 0.9rem;
+      border-bottom: 1px solid var(--clr-border);
+    }
+
+    .group-desc {
+      font-size: 1rem;
+      color: var(--clr-text);
+      line-height: 1.75;
+      max-width: 90ch;
+      margin-bottom: 1.6rem;
+    }
+
+    /* ─── Picture gallery ─────────────────────────────────────── */
+    .gallery {
+      list-style: none;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 0.75rem;
+    }
+
+        /* Remove the browser default so we can draw our own */
+    .gallery-item img:focus {
+      outline: none;
+    }
+
+    /* Gold inset outline matching the site palette */
+    .gallery-item img:focus-visible {
+      outline: 4px solid var(--clr-gold-light);
+      outline-offset: -6px;
+    }
+
+    .gallery-item {
+      position: relative;
+      overflow: hidden;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--clr-border);
+      aspect-ratio: 4 / 3;
+      background: var(--clr-navy-light);
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.3s ease;
+    }
+
+    .gallery-item:hover img { transform: scale(1.04); }
+
+    .gallery-item figcaption {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      padding: 3.5rem 0.75rem 0.5rem 0.75rem;
+      background: linear-gradient(to top, rgba(26,35,64,1), transparent);
+      color: rgba(255,255,255,0.92);
+      font-size: 0.78rem;
+      line-height: 1.4;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    .gallery-item:hover figcaption,
+    .gallery-item:focus-within figcaption { opacity: 1; }
+
+
+    /* ─── Full workshop gallery (larger tiles) ────────────────── */
+    .gallery-workshop {
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1rem;
+    }
+
+    .gallery-workshop .gallery-item { aspect-ratio: 3 / 2; }
+
+    /* ─── Responsive tweaks ───────────────────────────────────── */
+    @media (max-width: 768px) {
+      .paper-card  { grid-template-columns: 1fr; }
+      .paper-download { grid-column: 1; grid-row: auto; justify-self: start; margin-top: 0.5rem; }
+      .group-block { padding: 1.4rem; }
+    }
+
+    @media (max-width: 480px) {
+      .gallery { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media print {
+      .gallery-item figcaption { opacity: 1; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ── Skip Navigation (WCAG 2.4.1) ─────────────────────────── -->
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  <!-- ── Top Navigation ──────────────────────────────────────────── -->
+  <nav class="site-nav" aria-label="Primary navigation">
+    <div class="nav-inner">
+
+      <a class="site-name" href="index.html" aria-label="CIAW – go to homepage">CIAW</a>
+
+      <button
+        class="nav-toggle"
+        aria-controls="primary-nav-links"
+        aria-expanded="false"
+        aria-label="Toggle navigation menu"
+        type="button"
+      >
+        <span class="icon-open"  aria-hidden="true">☰</span>
+        <span class="icon-close" aria-hidden="true">✕</span>
+      </button>
+
+      <ul class="nav-links" id="primary-nav-links" role="list">
+        <li><a href="index.html"              data-page="index.html">Homepage</a></li>
+        <li><a href="index.html#call-for-papers" data-page="index.html">Call for papers</a></li>
+        <li><a href="index.html#key-deadlines"   data-page="index.html">Key deadlines</a></li>
+        <li><a href="organizers.html"         data-page="organizers.html">Organizers</a></li>
+        <li><a href="workshop_outcomes.html"         data-page="workshop_outcomes.html">Workshop outcomes</a></li>
+      </ul>
+
+    </div>
+  </nav>
+
+  <!-- ── Hero Header ────────────────────────────────────────────────
+  <header class="site-header" role="banner">
+    <div class="header-inner">
+      <h1 class="header-title">Workshop Outcomes</h1>
+      <p class="header-subtitle">
+        Accepted papers, group activities and a look back at the day — CIAW @ CUI 2026, Bremen.
+      </p>
+    </div>
+  </header>
+ -->
+  
+  <!-- ── Main Content ──────────────────────────────────────────────── -->
+  <main id="main-content" class="site-main">
+
+          <figure>
+        <img
+          class="intro-banner"
+          src="./images/group-photo.jpg"
+          alt="Workshop participants and organizers gathered together in front of the presentation's opening slide. Thirteen people, men and women stand together, smiling."
+          width="1160"
+          height="420"
+        >
+        <figcaption class="intro-banner-caption">
+          Participants of the CIAW workshop at CUI 2026, Bremen — July 2026.
+        </figcaption>
+      </figure>
+
+    <!-- ── 1. Introduction ──────────────────────────────────────── -->
+    <section id="introduction" class="content-section" aria-labelledby="intro-heading">
+
+      <p class="section-label" aria-hidden="true">Accepted papers, group activities and a look back at the day</p>
+      <h2 class="section-title" id="intro-heading">Workshop outcomes</h2>
+
+      <div>
+        <p style="margin-bottom: 1rem;">
+          The Workshop on Conversational Interfaces for Agentic Web Browsing (CIAW) brought together
+          researchers and practitioners from HCI, AI, and accessibility to explore how conversational
+          agents can support complex web browsing tasks. Held as a half-day in-person event at
+          CUI 2026 in Bremen, the workshop was an occasion to share ideas on this rising interaction paradigm.
+        </p>
+        <p>
+          Through group discussions and a collaborative storyboarding
+          activity, participants discussed in groups challenges and gaps in the design of conversational interaction in agentic web browsing and envisioned future interaction scenarios. This page collects the accepted papers and the
+          outcomes produced during the day.
+        </p>
+      </div>
+
+    </section>
+
+    <!-- ── 2. Accepted Papers ────────────────────────────────────── -->
+    <section id="accepted-papers" class="content-section" aria-labelledby="papers-heading">
+
+      <p class="section-label" aria-hidden="true">Published research</p>
+      <h2 class="section-title" id="papers-heading">Accepted Papers</h2>
+
+      <div class="section-body">
+        <p>
+          The following position papers were accepted. Each paper is available to read online and download as a PDF.
+        </p>
+      </div>
+
+      <ul class="papers-list" role="list" aria-label="Accepted papers">
+
+        <li class="paper-card">
+          <div class="paper-info">
+            <p class="paper-title">
+              <!-- <a href="#" aria-label="Read: “Zooming In” on AgenticWeb Browsers as Assistive Technologies: A Case Study with a Low-Vision Technology Expert"> -->
+                “Zooming In” on AgenticWeb Browsers as Assistive Technologies: A Case Study with a Low-Vision Technology Expert
+              <!-- </a> -->
+            </p>
+            <p class="paper-authors">Laura Colazzo, Giuseppe Anzillotti</p>
+          </div>
+          <a class="paper-download" href="./papers/CUI-2026-COLAZZO-ANZILLOTTI.pdf" aria-label="Download PDF of “Zooming In” on AgenticWeb Browsers">
+            ↓ PDF
+          </a>
+        </li>
+
+        <li class="paper-card">
+          <div class="paper-info">
+            <p class="paper-title">
+              <!-- <a href="#" aria-label="Read: Beyond Conversation: Graphical Interfaces for ConversationalWeb Browsing"> -->
+                Beyond Conversation: Graphical Interfaces for ConversationalWeb Browsing
+              <!-- </a> -->
+            </p>
+            <p class="paper-authors">Verena Traubinger, Sebastian Heil, Martin Gaedke</p>
+          </div>
+          <a class="paper-download" href="./papers/Beyond_Conversation-Graphical_Interfaces_for_Conversational_Web_Browsing.pdf" aria-label="Download PDF of Beyond Conversation: Graphical Interfaces for ConversationalWeb Browsing">
+            ↓ PDF
+          </a>
+        </li>
+
+<!--         <li class="paper-card">
+          <div class="paper-info">
+            <p class="paper-title">
+              <a href="#" aria-label="Read: Trust and Transparency in Voice-Activated Web Search">
+                Trust and Transparency in Voice-Activated Web Search
+              </a>
+            </p>
+            <p class="paper-authors">Emanuele Pucci, Ludovica Piro</p>
+          </div>
+          <a class="paper-download" href="#" aria-label="Download PDF of Trust and Transparency in Voice-Activated Web Search">
+            ↓ PDF
+          </a>
+        </li> -->
+
+      </ul>
+    </section>
+
+    <!-- ── 3. Workshop Outcomes ──────────────────────────────────── -->
+    <section id="workshop-outcomes" class="content-section" aria-labelledby="outcomes-heading">
+
+      <p class="section-label" aria-hidden="true">Group work</p>
+      <h2 class="section-title" id="outcomes-heading"> Workshop artifacts</h2>
+      <div  class="section-body">
+        <p>
+          These artifacts were produced during the storyboarding activity. Working in groups, participants reflected on current gaps in conversational interaction in agentic web browsing and produced storyboards illustrating a scenario in which an agent or user accomplishes a task on the web. To frame the activity, each group selected three components — a challenge, a theme, and a context — drawn from the workshop presentation and plenary discussion. 
+        </p>
+
+        <p>
+        Each participant first developed an individual storyboard around the group's chosen components; the group then discussed their drafts collectively and produced a shared storyboard. In a final refinement step, groups revisited their storyboard through the lens of at least two of the following dimensions: privacy and data handling, trust and transparency, accessibility, user autonomy and control, system accountability and permissions, and usability.   </br>
+          The outputs below reflect the range of perspectives represented at the workshop and offer inspiration for future research.
+        </p>
+      </div>
+
+      <div class="cfp-cta" id="download-slide-btn">
+        <a href="./papers/CIAW!.pdf" class="btn-primary" aria-label="Download workshop slides" target="_blank">
+          Download the workshops slides
+        </a>
+        </div>
+
+      <div class="groups-list">
+
+        <!-- Group 1 -->
+        <article class="group-block" aria-labelledby="group1-heading" id=" "group-1>
+          <p class="group-label">Group 1</p>
+          <h3 class="group-title" id="group1-heading">Interaction models, education, user agency</h3>
+          <p class="group-desc">
+            Group 1 focused on the theme of "Interaction models for the agentic web", in the context of education, and around the challenge of ensuring user agency,
+            Their storyboard depicted a scenario where their user, an HCI researcher, uses an agentic web browser to brainstorm their research question. Before starting the interaction, they can configure whether having visible the agent's reasoning steps. While interacting the user works in parallel with the system, both proposing options and looking for sources. At the end, the sources identified by both are syntesized in gaps and the user finds their research question. In the second refinement, this group focused on the dimensions of privacy, user control, and trust and transparency.
+          </p>
+          <figure>
+            <ul class="gallery" role="list" aria-label="Materials from Group 1">
+              <li class="gallery-item">
+                <img src="./images/group-1/group-1.jpeg"
+                     alt="Group 1 group picture showing the four members discussing around a table one member's storyboard "
+                     width="400" height="300">
+                <figcaption>Participants discussing their individual storyboards</figcaption>
+              </li>
+              <li class="gallery-item">
+                <img src="./images/group-1/IMG20260721112209.jpg"
+                     alt="The first individual storyboard shows a user searching on the web for an inspiration for a research questions. They use an agentic web browser to get suggestions of possibile questions. The user starts describing themselves until the goal is well specified. At the end they get suggestions and the user identifies a viable research question."
+                     width="400" height="300">
+                <figcaption>Individual storyboard 1</figcaption>
+              </li>
+              <li class="gallery-item">
+                <img src="./images/group-1/IMG20260721112218.jpg"
+                     alt="The second individual storyboard tells about a user researching a topic. The research is articulated in five stages: scoping, summarization, discussion, evaluation and derinement."
+                     width="400" height="300">
+                <figcaption>Individual storyboard 2</figcaption>
+              </li>
+
+              <li class="gallery-item">
+                <img src="./images/group-1/IMG20260721112228.jpg"
+                     alt="In the third individual storyboard the research process is articulated into five steps: a narrow down step, a brain storm, a third step where the agent steps in to suggest ideas that the user can expand, a literature review step and a last step called 'Novelty approach' searching the for gaps."
+                     width="400" height="300">
+                <figcaption>Individual storyboard 3</figcaption>
+              </li>
+
+              <li class="gallery-item">
+                <img src="./images/group-1/IMG20260721112238.jpg"
+                     alt="The fourth individual storyboard envisions a system symilar to flipped teaching to individualize learning. The interface helps users complete tasks pre-class using a tutoring agent. During the class there is either a human or robot instructor. Lastly, the agent checks assigmnets and provides more excercises."
+                     width="400" height="300">
+                <figcaption>Individual storyboard 4</figcaption>
+              </li>
+
+               <li class="gallery-item">
+                <img src="./images/group-1/final-storyboard-1.jpg"
+                     alt="The final group storyboard combines individual ideas envisioning a research tool in six steps: configuring for transparency, prompting the system, getting an answer with a list of research ideas, exploring other possibilities, synthesizing different ideas with the agent, reaching a satisfying research question."
+                     width="400" height="300">
+                <figcaption>Final group storyboard</figcaption>
+              </li>
+
+            </ul>
+          </figure>
+        </article>
+
+        <!-- Group 2 -->
+        <article class="group-block" aria-labelledby="group2-heading">
+          <p class="group-label">Group 2</p>
+          <h3 class="group-title" id="group2-heading">Interaction Models, health, and user agency</h3>
+          <p class="group-desc">
+            Group 2 explored the theme of "interaction models for the agentic web", contextualising it the health domain, and focusing on the challenge of user agency.
+            Their storyboard depicted an older user looking for an health plan. The agent provides different options and explains pros and cons, helping the user in making an informed choice, with the option of contacting a a professional to verify information. Additionally, participants highlighted the relevance of the dimensions of privacy, system accountability and user's authonomy, in the users' journey as they provide personal data to the system and make critical decision about their health plan. 
+          </p>
+          <figure>
+            <ul class="gallery" role="list" aria-label="Materials from Group 2">
+              <li class="gallery-item">
+                <img src="./images/group-2/group-2.jpeg"
+                     alt="Group 2 group picture showing the three memebrs discussing around a table"
+                     width="400" height="300">
+                <figcaption>Group 2 participants discussing together</figcaption>
+              </li>
+              <li class="gallery-item">
+                <img src="./images/group-2/IMG20260721102152.jpg"
+                     alt="The first individual storyboard shows a user providing multiple URLs to their agent. In turn, the agent produces a summary of all the options. Agent and user chat to discuss costs, preconditions and other relevan aspcts. This produces a ranking of the options. The user can ask for explanations and lastly finalize their selection."
+                     width="400" height="300">
+                <figcaption>Individual storyboard 1</figcaption>
+              </li>
+              <li class="gallery-item">
+                <img src="./images/group-2/IMG20260721102159.jpg"
+                     alt="The second individual storyboard depicts an agent in the role of a medical representative. The agent knows the user's medical history and notifies them that they have a pending blood test. The user can explain why the test was not done and the agent can contact a doctor through the interface. The agent then provides a summary of the call, convincing the user to book the blood test appointment."
+                     width="400" height="300">
+                <figcaption>Individual storyboard 2</figcaption>
+              </li>
+
+              <li class="gallery-item">
+                <img src="./images/group-2/IMG20260721102205.jpg"
+                     alt="In the third individual storyboard the user is on the medicare enrollment site. They interact with an agent providing their background information: they are blind, diabetic and pauper. Thanks to this information, the agent provides the correct available choices. The agent can also provide explanations on why certain plans are not available for the user. It can produce scenarios to simulate what would happen under certain conditions and provide pros and cons for the plan the user has selected. At the end of the journey the agent presents the next steps."
+                     width="400" height="300">
+                <figcaption>Individual storyboard 3</figcaption>
+              </li>
+
+               <li class="gallery-item">
+                <img src="./images/group-2/final-storyboard-3.jpg"
+                     alt="In the final group scenario, the participants chose the medicare enrollment scenario. The agent can contact a professional, it can sort options and explain their costs, pros and cons, and create projections of costs based on medical events. If the user is satisfied they can enroll. The storyboard highlights the need of system accountability in case of error in the explanations"
+                     width="400" height="300">
+                <figcaption>Final storyboard</figcaption>
+              </li>
+
+              <li class="gallery-item">
+                <img src="./images/group-2/final-storyboard-3-1.jpg"
+                     alt="In a post-it under the first one, the participants highlighted the need for privacy measures to manage private information provided by the user"
+                     width="400" height="300">
+                <figcaption>Final storyboard, detail of the first step</figcaption>
+              </li>
+
+              <li class="gallery-item">
+                <img src="./images/group-2/final-storyboard-3-2.jpg"
+                     alt="In a post-it under the last step, the participants highlighted that after the user booked the plan, they need to be aware of the next steps and the system needs to be acocuntable for possible errors."
+                     width="400" height="300">
+                <figcaption>Final storyboard, detail of the last step</figcaption>
+              </li>
+            </ul>
+          </figure>
+        </article>
+
+        <!-- Group 3 -->
+        <article class="group-block" aria-labelledby="group3-heading">
+          <p class="group-label">Group 3</p>
+          <h3 class="group-title" id="group3-heading">The use of voice and speech in agentic web, language learning, and user agency</h3>
+          <p class="group-desc">
+            Group 3 chose to frame their storyboard around the theme "use of voice and speech in agentic web", in the context of language learning, and focusing on the challenge of user agency. They envisioned a student learning german and using a voice agent in a restaurant to provide live translation, while at the same time allowing the user to search the web for explanations of local dishes and ingredients, allowing them to understand whether a dish is suitable for their dietary restrictions or not. Reflecting on the dimensions of user control and privacy the storyboard highlights also the discretional aspects of the interaction, leaving to the user the decision to search the web or not. 
+          </p>
+          <figure>
+            <ul class="gallery" role="list" aria-label="Materials from Group 3">
+              <li class="gallery-item">
+                <img src="./images/group-3/group-3.jpeg"
+                     alt="Group 3 showing the four members writing their storyboards while sitting in circle around a table"
+                     width="400" height="300">
+                <figcaption>Participants working on their individual storyboards</figcaption>
+              </li>
+              <li class="gallery-item">
+                <img src="./images/group-3/IMG20260721115110.jpg"
+                     alt="In the first individual storyboard an user si depicted going to a restaurant. They are an International student and do not knwo the local language. The waiter provides a recommendation, however the user has certain dietary restrictions. THe user uses an agent to check whether the menu options are sutable for their needs. the interaction involves three parties: the agent, the waiter and the user. Supported by the agent providing explanations, the user is able to place an order that satisfies them.
+                     width="400" height="300">
+                <figcaption>Individual storyboard 1</figcaption>
+              </li>
+              <li class="gallery-item">
+                <img src="./images/group-3/IMG20260721115113.jpg"
+                     alt="In the second individual storyboard, the user uses the agent to search menu dishes to check for the presence of nuts. The agent is shown to be able to browse the web searching local websites. The agen informs the user that there are viarious regional variants for the dish. The user chats with the agent to understand whether nuts can be left out of the dish. Having obtained a positive answere, the user places their order."
+                     width="400" height="300">
+                <figcaption>Individual storyboard 2</figcaption>
+              </li>
+
+              <li class="gallery-item">
+                <img src="./images/group-3/IMG20260721115120.jpg"
+                     alt="The third individual storyboard depicts Maria, an international student with A1 german language knowledge. At the restaurant she uses the agent to support her with live translations. The agent can provide also additional information enriching the interaction for Maria."
+                     width="400" height="300">
+                <figcaption>Individual storyboard 3</figcaption>
+              </li>
+
+              <li class="gallery-item">
+                <img src="./images/group-3/IMG20260721115128.jpg"
+                     alt="In the fourth storyboard a multimodal agent is depicted. It can combine pictures of the menu with the information provided by the waiter and provides a translated recipe of the dish. The agent also knows about the user's preferences so it is able to make recommendations. "
+                     width="400" height="300">
+                <figcaption>Individual storyboard 4</figcaption>
+              </li>
+
+              <li class="gallery-item">
+                <img src="./images/group-3/Final-storyboard-3.jpg"
+                     alt="In the group storyboard participants combined the features of live translation, chat, and personalization. They depicted the user interacting whith the waiter with the help of the agent. Before placing their order, the user checks with the agent for additional info about the dish. The agent is personalized with user's preferences and dietary restrictions."
+                     width="400" height="300">
+                <figcaption>Final group storyboard</figcaption>
+              </li>
+            </ul>
+          </figure>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- ── 4. Photo Gallery ───────────────────────────────────────── -->
+    <section id="gallery" class="content-section" aria-labelledby="gallery-heading">
+
+      <p class="section-label" aria-hidden="true">The day in pictures</p>
+      <h2 class="section-title" id="gallery-heading">Gallery</h2>
+
+      <ul class="gallery gallery-workshop" role="list" aria-label="Photos from the CIAW workshop day">
+        <li class="gallery-item">
+          <img src="./images/gallery-day/IMG_5814.jpeg"
+               alt="Opening presentation. The presenting organizer stands to the right of the board showing a slide with a list of challenges and opportunities that characterize conversational agentic web browsing."
+               width="520" height="347">
+          <figcaption>Opening presentation.</figcaption>
+        </li>
+        <li class="gallery-item">
+          <img src="./images/gallery-day/IMG_5824.jpeg"
+               alt="Two mall groups of participants in discussion around tables"
+               width="520" height="347">
+          <figcaption>Group discussion session.</figcaption>
+        </li>
+        <li class="gallery-item">
+          <img src="./images/gallery-day/P1010110.jpg"
+               alt="Group 1 Participants working on storyboards with pens and paper on the table"
+               width="520" height="347">
+          <figcaption>Group 1 working on their individual storyboards during the storyboarding activity.</figcaption>
+        </li>
+        <li class="gallery-item">
+          <img src="./images/gallery-day/P1010111.jpg"
+               alt="A participant talking while with his two groupmates listening."
+               width="520" height="347">
+          <figcaption>Group 2 discussing their idea during the storyboarding activity.</figcaption>
+        </li>
+        <li class="gallery-item">
+          <img src="./images/gallery-day/P1010115.jpg"
+               alt="Group 3 talking with one of the organizers"
+               width="520" height="347">
+          <figcaption>Group 3 discussing the storyboarding activity with one of the organizers.</figcaption>
+        </li>
+        <li class="gallery-item">
+          <img src="./images/gallery-day/P1010139.jpg"
+               alt="All members of group stand by the display while one of them presents their storyboard."
+               width="520" height="347">
+          <figcaption>Group 1 presenting their storyboard.</figcaption>
+        </li>
+        <li class="gallery-item">
+          <img src="./images/gallery-day/P1010138.jpg"
+               alt="One of group 2 members presenting in front of the other participants."
+               width="520" height="347">
+          <figcaption>Group 2 presenting their storyboard.</figcaption>
+        </li>
+        
+        <li class="gallery-item">
+          <img src="./images/gallery-day/IMG_5837.jpeg"
+               alt="Two members of group 3 stand on the sides of the display presenting their storyboard."
+               width="520" height="347">
+          <figcaption>GRoup 3 presenting their storyboard.</figcaption>
+        </li>
+        <li class="gallery-item">
+          <img src="./images/gallery-day/IMG_5840.jpeg"
+               alt="Organisers and all participants gathered at the close of the workshop for a selfie"
+               width="520" height="347">
+          <figcaption>Closing selfie.</figcaption>
+        </li>
+      </ul>
+
+    </section>
+
+  </main>
+
+  <!-- ── Back to Top ─────────────────────────────────────────────── -->
+  <div class="back-to-top-wrap">
+    <a class="back-to-top" href="#" aria-label="Back to top of page">
+      <span class="back-to-top-arrow" aria-hidden="true">↑</span>
+      Back to top
+    </a>
+  </div>
+
+  <!-- ── Footer ──────────────────────────────────────────────────── -->
+  <footer class="site-footer" id="contacts-section" role="contentinfo">
+    <div class="footer-inner">
+
+      <div class="footer-top">
+
+        <div class="footer-brand">
+          <p class="footer-brand-name">CIAW</p>
+          <p class="footer-brand-desc">
+            CUI 2026<br>
+            Bremen, Germany · 21–24 July 2026
+          </p>
+        </div>
+
+        <address>
+          <p class="footer-contacts-title">Organizers</p>
+          <ul class="contacts-list" role="list">
+
+            <li class="contact-item">
+              <span class="contact-name">Ludovica Piro <strong>(main contact)</strong></span>
+              <span class="contact-role">Politecnico di Milano, Italy</span>
+              <a class="contact-email" href="mailto:ludovica.piro@polimi.it">ludovica.piro@polimi.it</a>
+            </li>
+
+            <li class="contact-item">
+              <span class="contact-name">Heloisa Candello</span>
+              <span class="contact-role">Inteli, Brazil</span>
+            </li>
+
+            <li class="contact-item">
+              <span class="contact-name">Maristella Matera</span>
+              <span class="contact-role">Politecnico di Milano, Italy</span>
+            </li>
+
+            <li class="contact-item">
+              <span class="contact-name">Christine Murad</span>
+              <span class="contact-role">University of Waterloo, Canada</span>
+            </li>
+
+          </ul>
+        </address>
+
+      </div>
+
+    </div>
+  </footer>
+
+    <div
+    class="lightbox"
+    id="lightbox"
+    role="dialog"
+    aria-modal="true"
+    aria-label="Image viewer"
+    aria-hidden="true"
+  >
+    <div class="lightbox-panel">
+ 
+      <!-- Close button -->
+      <button class="lightbox-close" id="lb-close" aria-label="Close image viewer">✕</button>
+ 
+      <!-- Previous arrow -->
+      <button class="lightbox-arrow" id="lb-prev" aria-label="Previous image">&#8592;</button>
+ 
+      <!-- Centre: image + caption -->
+      <div class="lightbox-centre">
+        <img class="lightbox-img" id="lb-img" src="" alt="">
+        <p class="lightbox-caption" id="lb-caption"></p>
+        <p class="lightbox-counter" id="lb-counter" aria-live="polite"></p>
+      </div>
+ 
+      <!-- Next arrow -->
+      <button class="lightbox-arrow" id="lb-next" aria-label="Next image">&#8594;</button>
+ 
+    </div>
+  </div>
+
+
+  <!-- ── Scripts ─────────────────────────────────────────────────── -->
+  <script>
+    (function () {
+      const toggle   = document.querySelector('.nav-toggle');
+      const navLinks = document.getElementById('primary-nav-links');
+      if (!toggle || !navLinks) return;
+
+      toggle.addEventListener('click', function () {
+        const expanded = this.getAttribute('aria-expanded') === 'true';
+        this.setAttribute('aria-expanded', String(!expanded));
+        navLinks.classList.toggle('is-open', !expanded);
+      });
+
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && navLinks.classList.contains('is-open')) {
+          toggle.setAttribute('aria-expanded', 'false');
+          navLinks.classList.remove('is-open');
+          toggle.focus();
+        }
+      });
+
+      navLinks.querySelectorAll('a').forEach(function (link) {
+        link.addEventListener('click', function () {
+          toggle.setAttribute('aria-expanded', 'false');
+          navLinks.classList.remove('is-open');
+        });
+      });
+    })();
+
+    /* Active nav link via URL matching */
+    (function () {
+      const links = document.querySelectorAll('#primary-nav-links a[data-page]');
+
+      function setActiveFromURL() {
+        const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+        links.forEach(function (link) {
+          if (link.getAttribute('data-page') === currentPage) {
+            link.setAttribute('aria-current', 'page');
+          } else {
+            link.removeAttribute('aria-current');
+          }
+        });
+      }
+
+      setActiveFromURL();
+      window.addEventListener('popstate', setActiveFromURL);
+    })();
+
+    //----------- Image gallery--------
+    /* ━━━ CHANGED: lightbox — focus trap + keyboard navigation ━━━ */
+    (function () {
+      var lightbox   = document.getElementById('lightbox');
+      var lbImg      = document.getElementById('lb-img');
+      var lbCaption  = document.getElementById('lb-caption');
+      var lbCounter  = document.getElementById('lb-counter');
+      var lbClose    = document.getElementById('lb-close');
+      var lbPrev     = document.getElementById('lb-prev');
+      var lbNext     = document.getElementById('lb-next');
+ 
+      // All focusable elements inside the dialog, in DOM order.
+      // Update this list if you ever add more interactive elements.
+      var focusable = [lbPrev, lbNext, lbClose];
+ 
+      // Collect every gallery image across all galleries on the page
+      var images = Array.from(document.querySelectorAll('.gallery-item img'));
+      var current = 0;
+      var lastFocus = null;
+ 
+      function getCaptionFor(img) {
+        var item = img.closest('.gallery-item');
+        if (!item) return '';
+        var cap = item.querySelector('figcaption');
+        return cap ? cap.textContent.trim() : (img.alt || '');
+      }
+ 
+      function show(index) {
+        current = (index + images.length) % images.length;
+        var img = images[current];
+        lbImg.src     = img.src;
+        lbImg.alt     = img.alt;
+        lbCaption.textContent = getCaptionFor(img);
+        // aria-live region announces the new position to screen readers
+        lbCounter.textContent = (current + 1) + ' / ' + images.length;
+      }
+ 
+      function open(index) {
+        lastFocus = document.activeElement;
+        show(index);
+        lightbox.classList.add('is-open');
+        lightbox.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+        // Move focus into the dialog — land on Close so first Tab reaches Prev
+        lbClose.focus();
+      }
+ 
+      function close() {
+        lightbox.classList.remove('is-open');
+        lightbox.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+        lbImg.src = '';
+        if (lastFocus) lastFocus.focus();
+      }
+ 
+      
+      // ━━━ CHANGED: focus trap ━━━
+      // Intercepts EVERY Tab / Shift+Tab press while the lightbox is open.
+      // Instead of only checking boundary elements (which lets focus escape
+      // to background elements like the gallery thumbnails that have
+      // tabindex="0"), we always calculate the next focusable element
+      // ourselves and move focus there explicitly.
+      function trapFocus(e) {
+        if (e.key !== 'Tab') return;
+        e.preventDefault(); // always prevent default while lightbox is open
+
+        var idx = focusable.indexOf(document.activeElement);
+
+        if (e.shiftKey) {
+          // Shift+Tab: go backwards; wrap from first to last
+          idx = (idx <= 0) ? focusable.length - 1 : idx - 1;
+        } else {
+          // Tab: go forwards; wrap from last to first
+          idx = (idx >= focusable.length - 1) ? 0 : idx + 1;
+        }
+
+        focusable[idx].focus();
+      }
+ 
+      // ── Keyboard navigation ───────────────────────────────────
+      function handleKeys(e) {
+        if (!lightbox.classList.contains('is-open')) return;
+ 
+        switch (e.key) {
+          case 'Escape':
+            close();
+            break;
+          case 'ArrowLeft':
+            show(current - 1);
+            break;
+          case 'ArrowRight':
+            show(current + 1);
+            break;
+          case 'Tab':
+            trapFocus(e);
+            break;
+        }
+      }
+ 
+      // Wire gallery images — keyboard accessible via role="button"
+      images.forEach(function (img, i) {
+        img.setAttribute('tabindex', '0');
+        img.setAttribute('role', 'button');
+        img.addEventListener('click', function () { open(i); });
+        img.addEventListener('keydown', function (e) {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            open(i);
+          }
+        });
+      });
+ 
+      // Wire lightbox controls
+      lbClose.addEventListener('click', close);
+      lbPrev.addEventListener('click',  function () { show(current - 1); });
+      lbNext.addEventListener('click',  function () { show(current + 1); });
+ 
+      // Clicking the dark overlay (outside the panel) closes the lightbox
+      lightbox.addEventListener('click', function (e) {
+        if (e.target === lightbox) close();
+      });
+ 
+      // Single keydown listener handles Escape, arrows, and Tab trap
+      document.addEventListener('keydown', handleKeys);
+    })();
+
+
+  </script>
+
+</body>
+</html>
